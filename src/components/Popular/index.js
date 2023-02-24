@@ -36,7 +36,7 @@ class Popular extends Component {
       },
     }
     const response = await fetch(getPopularMoviesApiUrl, options)
-    if (response.status === 200) {
+    if (response.ok === true) {
       const data = await response.json()
       const updatedData = data.results.map(each => ({
         id: each.id,
@@ -57,22 +57,19 @@ class Popular extends Component {
   renderPopularMovies = () => {
     const {moviesList} = this.state
     return (
-      <>
-        <ul className="popular-movies-list-container">
-          {moviesList.map(each => (
-            <Link className="link-item" to={`/movies/${each.id}`}>
-              <li key={each.id} className="popular-movies-list-item">
-                <img
-                  src={each.posterPath}
-                  alt={each.title}
-                  className="popular-movie-image"
-                />
-              </li>
-            </Link>
-          ))}
-        </ul>
-        <Footer />
-      </>
+      <ul className="popular-movies-list-container">
+        {moviesList.map(each => (
+          <Link className="link-item" to={`/movies/${each.id}`}>
+            <li key={each.id} className="popular-movies-list-item">
+              <img
+                src={each.posterPath}
+                alt={each.title}
+                className="popular-movie-image"
+              />
+            </li>
+          </Link>
+        ))}
+      </ul>
     )
   }
 
@@ -124,6 +121,7 @@ class Popular extends Component {
       <div className="popular-main-bg">
         <Navbar />
         <div>{content}</div>
+        <Footer />
       </div>
     )
   }
