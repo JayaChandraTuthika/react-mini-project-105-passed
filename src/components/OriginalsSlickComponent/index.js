@@ -33,9 +33,9 @@ class OriginalsSlickComponent extends Component {
         Authorization: `Bearer ${jwtToken}`,
       },
     }
-    try {
-      const response = await fetch(getTrendingMoviesApiUrl, options)
 
+    const response = await fetch(getTrendingMoviesApiUrl, options)
+    if (response.ok === true) {
       const data = await response.json()
       //   console.log(data)
       const updatedData = data.results.map(each => ({
@@ -49,7 +49,7 @@ class OriginalsSlickComponent extends Component {
         originalMoviesList: updatedData,
         status: statusConstants.success,
       })
-    } catch (e) {
+    } else {
       this.setState({status: statusConstants.failure})
     }
   }
